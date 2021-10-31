@@ -5,7 +5,10 @@ from disnake import member
 
 import os
 
-bot = commands.Bot(command_prefix = commands.when_mentioned_or('$'), test_guilds = [848576409312165908, 848098024164294657])
+bot = commands.Bot(
+    command_prefix = commands.when_mentioned_or('$'), 
+    test_guilds = [848576409312165908, 848098024164294657]
+)
 
 for filename in os.listdir('./cogs'):
     if filename.endswith('.py'):
@@ -16,7 +19,7 @@ for filename in os.listdir('./cogs'):
 async def on_ready():
     await bot.change_presence(
         status = disnake.Status.idle, 
-        activity = disnake.Activity(type= disnake.ActivityType.watching, name = "paneer.")
+        activity = disnake.Activity(type = disnake.ActivityType.watching, name = "paneer.")
     )
     print("Bot is ready!")
     print('------')
@@ -44,24 +47,19 @@ async def unload(ctx, extension):
     await ctx.send(f'Cog {extension} is now unloaded!')
 
 @bot.command()
-@commands.has_permissions(administrator=True)
+@commands.has_permissions(administrator = True)
 async def reload(ctx, extension):
     """Use this to reload individual cogs. Usage: $reload <cog_name>"""
     bot.reload_extension(f'cogs.{extension}')
     await ctx.send(f'Cog {extension} is now reloaded!')
 
 @bot.command()
-@commands.has_permissions(administrator=True)
+@commands.has_permissions(administrator = True)
 async def reloadall(ctx):
     for filename in os.listdir('./cogs'):
         if filename.endswith('.py'):
             bot.reload_extension(f'cogs.{filename[:-3]}')
             await ctx.send(f'Cog {filename[:-3]} is now reloaded!')
 
-@bot.command()
-@commands.has_permissions(administrator=True)
-async def roles(ctx):
-    await ctx.send("Use these buttons for roles (until android devs fix slash commands smh)")
-    
 token = os.environ.get('BOT_TOKEN')
 bot.run(token)
