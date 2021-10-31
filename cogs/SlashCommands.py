@@ -10,23 +10,18 @@ class SlashCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    times_slash_linkoss_used = 0
-
     @commands.slash_command(
         name = 'linkoss',
         description = 'Remind Linkoss to drink tea!'
     )
+    @commands.cooldown(10, 30, commands.BucketType.channel)
     async def tea(self, ctx: ApplicationCommandInteraction):
-        global times_slash_linkoss_used
-        if times_slash_linkoss_used <= 9:
-            global times_slash_linkoss_used
-            times_slash_linkoss_used += 1
-            await ctx.response.send_message('<@359812392504524811> Reminder to drink tea')
-        else:
-            await ctx.response.send_message('Linkoss has had enough tea already :slight_smile:')
-            await asyncio.sleep(20)
-            global times_slash_linkoss_used
-            times_slash_linkoss_used = 0
+        await ctx.response.send_message('<@359812392504524811> Reminder to drink tea')
+    
+    @tea.error
+    async def nomentionlinkoss(self, ctx, error):
+        if isinstance(error, commands.CommandOnCooldown):
+            await ctx.response.send_message(f'Linkoss can drink tea again after {error.retry_after}s. :slight_smile:')
 
     @commands.slash_command(
         name = 'ping',

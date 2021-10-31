@@ -62,6 +62,6 @@ async def reloadall(ctx):
 @commands.has_permissions(administrator=True)
 async def roles(ctx):
     await ctx.send("Use these buttons for roles (until android devs fix slash commands smh)")
-    
+
 token = os.environ.get('BOT_TOKEN')
 bot.run(token)
