@@ -3,8 +3,6 @@ from disnake.ext import commands
 from disnake.utils import get
 from disnake import ApplicationCommandInteraction, Option, OptionType, OptionChoice
 
-import asyncio
-
 class SlashCog(commands.Cog):
     
     def __init__(self, bot):
