@@ -56,8 +56,8 @@ class ErrorHandler(commands.Cog):
         if hasattr(ctx.command, 'on_error'):
             return
         embed = disnake.Embed(color = ctx.message.author.color,timestamp = ctx.message.created_at)
-        embed.set_footer(text = self.bot.user.username, icon_url = self.bot.user.avatar)
-        embed.set_author(name = ctx.message.author.username,icon_url = ctx.message.author.avatar)
+        embed.set_footer(text = self.bot.user.name, icon_url = self.bot.user.avatar)
+        embed.set_author(name = ctx.message.author.name,icon_url = ctx.message.author.avatar)
         error = getattr(error, 'original', error)
 
 
